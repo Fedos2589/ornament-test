@@ -1,7 +1,10 @@
-import { combineReducers } from 'redux';
-import recordsReducer from './recordsReducer';
+import { combineReducers } from "redux";
+import recordsReducer, { TRecords } from "./recordsReducer";
 
-export default combineReducers({
+export interface AppState {
+  records: TRecords;
+}
+
+export default combineReducers<AppState>({
   records: recordsReducer
-})
-
+});
