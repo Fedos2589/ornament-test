@@ -19,8 +19,10 @@ function App(props: TProps) {
     <div className='app'>
       <Grid container spacing={3} justify="center">
         <Grid item xs={10} md={8}>
-          <h1 className={classes.paper} onClick={() => props.addRecord({text: 'sdfg', done: true})}>My todo list for Ornament</h1>
-          <TodoItem />
+          <h1 className={classes.heading} onClick={() => props.addRecord({text: 'sdfg', done: true})}>My todo list for Ornament</h1>
+          <div className='todo-item-container'>
+            {props.records.map((record: TRecord) => <TodoItem key={record.text} {...record} />)}
+          </div>
         </Grid>
       </Grid>
     </div>
