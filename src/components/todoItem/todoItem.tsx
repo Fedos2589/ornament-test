@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { TRecord } from '../../reducers/recordsReducer';
+import { deleteRecord, updateRecord } from '../../actions';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Create, DeleteSweep } from '@material-ui/icons';
@@ -12,6 +13,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       color: theme.palette.text.primary,
       textAlign: 'center',
+    },
+    container: {
+      textAlign: 'center'
     },
     todoItem__paper: {
       padding: theme.spacing(2),
@@ -29,21 +33,51 @@ export const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const TodoItem = ({ done, text }: TRecord) => {
+interface TActionsProps {
+  deleteRecord: typeof deleteRecord,
+  updateRecord: typeof updateRecord
+};
+
+type TProps = TRecord & TActionsProps & { index: number };
+
+const TodoItem = ({ done, text, deleteRecord, updateRecord, index }: TProps) => {
   const classes = useStyles();
   const [isEditing, setEditingState] = useState(false);
+  const [newText, setText] = useState(text);
 
-  const renderTextOrInput = () => isEditing ? <TextField /> : text
+  const renderTextOrInput = () =>
+    isEditing
+      ? <Input
+          className={ classes.todoItem__text }
+          autoFocus
+          value={ newText }
+          onKeyPress={ handleAddButtonClick }
+          onChange={(e) => setText(e.target.value)}
+        />
+      : text;
+
+  const handleAddButtonClick = (e: React.KeyboardEvent) => {
+    if (e.charCode === 13) {
+      updateRecord({ text: newText, done, index })
+      setEditingState(false)
+    }
+  };
+
+  const handleDeleteButtonClick = () => deleteRecord({ text: newText, done, index })
+
+  const handleEditingButtonClick = () => setEditingState(!isEditing)
+
+  const handleCheckboxClick = () => updateRecord({ text, done: !done, index })
 
   return (
-    <Paper className={classes.todoItem__paper}>
-      <Checkbox checked={done} />
-      <div className={classes.todoItem__text}>
+    <Paper className={ classes.todoItem__paper }>
+      <Checkbox checked={ done } onClick={ handleCheckboxClick } />
+      <div className={ classes.todoItem__text }>
         {renderTextOrInput()}
       </div>
       <div>
-        <Create className={classes.todoItem__control} onClick={() => setEditingState(!isEditing)} />
-        <DeleteSweep className={classes.todoItem__control} />
+        <Create className={ classes.todoItem__control } onClick={ handleEditingButtonClick } />
+        <DeleteSweep className={ classes.todoItem__control } onClick={ handleDeleteButtonClick } />
       </div>
     </Paper>
   );

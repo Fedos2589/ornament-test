@@ -1,8 +1,8 @@
-import { TRecordAction } from "../actions";
-import Records from "../actions/types";
+import { TRecordAction } from '../actions';
+import Records from '../actions/types';
 
 export interface TRecord {
-  text: string;
+  text?: string;
   done?: boolean;
   index?: number;
 }
@@ -34,7 +34,7 @@ export const initialState = [
 
 export default function recordsReducer(
   state: TRecords = initialState,
-  action: TRecordAction
+  action: TRecordAction = ({ type: '', payload: {} })
 ): TRecords {
   switch (action.type) {
     case Records.ADD:
