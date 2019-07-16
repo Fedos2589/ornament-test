@@ -52,7 +52,7 @@ const TodoItem = ({ done, text, deleteRecord, updateRecord, index }: TProps) => 
           autoFocus
           value={ newText }
           onKeyPress={ handleAddButtonClick }
-          onChange={(e) => setText(e.target.value)}
+          onChange={ handleInputChange }
         />
       : text;
 
@@ -69,15 +69,23 @@ const TodoItem = ({ done, text, deleteRecord, updateRecord, index }: TProps) => 
 
   const handleCheckboxClick = () => updateRecord({ text, done: !done, index })
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value);
+
   return (
     <Paper className={ classes.todoItem__paper }>
       <Checkbox checked={ done } onClick={ handleCheckboxClick } />
-      <div className={ classes.todoItem__text }>
-        {renderTextOrInput()}
+      <div className={ classes.todoItem__text } id={ `text${index}` }>
+        { renderTextOrInput() }
       </div>
       <div>
-        <Create className={ classes.todoItem__control } onClick={ handleEditingButtonClick } />
-        <DeleteSweep className={ classes.todoItem__control } onClick={ handleDeleteButtonClick } />
+        <Create
+          className={ classes.todoItem__control }
+          onClick={ handleEditingButtonClick }
+        />
+        <DeleteSweep
+          className={ classes.todoItem__control }
+          onClick={ handleDeleteButtonClick }
+        />
       </div>
     </Paper>
   );
