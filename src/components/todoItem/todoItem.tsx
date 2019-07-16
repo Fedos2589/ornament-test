@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginBottom: '10px',
     },
     todoItem__text: {
-      width: '80%',
+      width: 'calc(100% - 140px)',
     },
     todoItem__control: {
       padding: '10px',
