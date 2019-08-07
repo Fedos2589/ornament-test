@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addRecord, deleteRecord, updateRecord } from '../../actions';
-import { TRecords, TRecord } from '../../reducers/recordsReducer';
+import { addRecord, deleteRecord, updateRecord, undoRecordDelete } from '../../actions';
+import { TRecords, TRecord, initialState } from '../../reducers/recordsReducer';
 import { AppState } from '../../reducers';
 import { TDispatch } from '../../commonTypes';
 import { Grid } from '@material-ui/core';
 import TodoItem, { useStyles } from '../../components/todoItem/todoItem';
 import AddItem from '../../components/addItem/addItem';
+import UndoButton from '../../components/undoButton/undoButton';
 
 interface TProps {
   records: TRecords,
   addRecord: typeof addRecord,
   deleteRecord: typeof deleteRecord,
-  updateRecord: typeof updateRecord
+  updateRecord: typeof updateRecord,
+  undoRecordDelete: typeof undoRecordDelete
 }
 
-function App({ records, addRecord, deleteRecord, updateRecord }: TProps) {
+function App({ records, addRecord, deleteRecord, updateRecord, undoRecordDelete }: TProps) {
   const classes = useStyles();
+  useEffect(() => localStorage.setItem('reduxState', JSON.stringify(initialState)), []);
 
   return (
     <div className="app">
@@ -35,6 +38,7 @@ function App({ records, addRecord, deleteRecord, updateRecord }: TProps) {
                 />
             )}
           </div>
+          <UndoButton undoRecordDelete={ undoRecordDelete } />
         </Grid>
       </Grid>
     </div>
@@ -51,7 +55,8 @@ const mapDispatchToProps = (dispatch: TDispatch) => {
   return {
     addRecord: (record: TRecord) => dispatch(addRecord(record)),
     deleteRecord: (record: TRecord) => dispatch(deleteRecord(record)),
-    updateRecord: (record: TRecord) => dispatch(updateRecord(record))
+    updateRecord: (record: TRecord) => dispatch(updateRecord(record)),
+    undoRecordDelete: (record: TRecord) => dispatch(undoRecordDelete(record))
   }
 };
 

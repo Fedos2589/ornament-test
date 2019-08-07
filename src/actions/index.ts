@@ -20,3 +20,8 @@ export const updateRecord = (record: TRecord): TRecordAction => ({
   type: Records.UPDATE,
   payload: record
 });
+
+export const undoRecordDelete = (record: TRecord): TRecordAction => ({
+  type: Records.UNDO,
+  payload: record
+})

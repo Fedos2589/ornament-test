@@ -53,15 +53,22 @@ const TodoItem = ({ done, text, deleteRecord, updateRecord, index }: TProps) => 
           value={ newText }
           onKeyPress={ handleAddButtonClick }
           onChange={ handleInputChange }
+          onBlur={ handleInputBlur }
         />
       : text;
 
   const handleAddButtonClick = (e: React.KeyboardEvent) => {
     if (e.charCode === 13) {
-      updateRecord({ text: newText, done, index })
-      setEditingState(false)
+      updateRecordAndStopEditing()
     }
   };
+
+  const handleInputBlur = () => updateRecordAndStopEditing()
+
+  const updateRecordAndStopEditing = () => {
+    updateRecord({ text: newText, done, index })
+    setEditingState(false)
+  }
 
   const handleDeleteButtonClick = () => deleteRecord({ text: newText, done, index })
 

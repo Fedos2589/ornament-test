@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import { initialState } from '../../reducers/recordsReducer';
-import enzyme, { shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import App from './App';
 
 const mockStore = configureMockStore();

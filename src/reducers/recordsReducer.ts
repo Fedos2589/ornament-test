@@ -1,5 +1,6 @@
-import { TRecordAction } from "../actions";
-import Records from "../actions/types";
+import { TRecordAction } from '../actions';
+import Records from '../actions/types';
+import { saveStateToLocalStorage, getStateFromLocalStorage } from '../localStorageHandlers';
 
 export interface TRecord {
   text?: string;
@@ -40,11 +41,14 @@ export default function recordsReducer(
     case Records.ADD:
       return [{ text: action.payload.text, done: false }, ...state];
     case Records.DELETE:
+      saveStateToLocalStorage(state);
       return state.filter((record, index) => index !== action.payload.index);
     case Records.UPDATE:
       return state.map((record, index) =>
         index === action.payload.index ? action.payload : record
       );
+    case Records.UNDO:
+      return getStateFromLocalStorage();
     default:
       return state;
   }
