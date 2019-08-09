@@ -1,6 +1,5 @@
 import { TRecordAction } from '../actions';
 import Records from '../actions/types';
-import { saveStateToLocalStorage, getStateFromLocalStorage } from '../localStorageHandlers';
 
 export interface TRecord {
   text?: string;
@@ -33,22 +32,31 @@ export const initialState = [
   }
 ];
 
+let stateHistory: string[] = [];
+
+const pushNewStateToHistory = (state: TRecords) => stateHistory.push(JSON.stringify(state));
+
 export default function recordsReducer(
   state: TRecords = initialState,
   action: TRecordAction = { type: "", payload: {} }
 ): TRecords {
   switch (action.type) {
     case Records.ADD:
+      pushNewStateToHistory(state);
       return [{ text: action.payload.text, done: false }, ...state];
     case Records.DELETE:
-      saveStateToLocalStorage(state);
+      pushNewStateToHistory(state);
       return state.filter((record, index) => index !== action.payload.index);
     case Records.UPDATE:
+      pushNewStateToHistory(state);
       return state.map((record, index) =>
         index === action.payload.index ? action.payload : record
       );
     case Records.UNDO:
-      return getStateFromLocalStorage();
+      const previousState = JSON.parse(stateHistory[stateHistory.length - 1]);
+      if (previousState.length > state.length) {
+        return previousState
+      }
     default:
       return state;
   }

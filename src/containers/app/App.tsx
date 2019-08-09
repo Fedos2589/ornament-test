@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { addRecord, deleteRecord, updateRecord, undoRecordDelete } from '../../actions';
-import { TRecords, TRecord, initialState } from '../../reducers/recordsReducer';
+import { TRecords, TRecord } from '../../reducers/recordsReducer';
 import { AppState } from '../../reducers';
 import { TDispatch } from '../../commonTypes';
 import { Grid } from '@material-ui/core';
@@ -19,7 +19,6 @@ interface TProps {
 
 function App({ records, addRecord, deleteRecord, updateRecord, undoRecordDelete }: TProps) {
   const classes = useStyles();
-  useEffect(() => localStorage.setItem('reduxState', JSON.stringify(initialState)), []);
 
   return (
     <div className="app">
