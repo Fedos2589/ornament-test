@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/ornament-test/static/css/main.34de6062.chunk.css",
-    "main.js": "/ornament-test/static/js/main.dc5b6199.chunk.js",
-    "main.js.map": "/ornament-test/static/js/main.dc5b6199.chunk.js.map",
+    "main.js": "/ornament-test/static/js/main.2cb06035.chunk.js",
+    "main.js.map": "/ornament-test/static/js/main.2cb06035.chunk.js.map",
     "runtime~main.js": "/ornament-test/static/js/runtime~main.b9bfa2ca.js",
     "runtime~main.js.map": "/ornament-test/static/js/runtime~main.b9bfa2ca.js.map",
-    "static/js/2.813e971d.chunk.js": "/ornament-test/static/js/2.813e971d.chunk.js",
-    "static/js/2.813e971d.chunk.js.map": "/ornament-test/static/js/2.813e971d.chunk.js.map",
+    "static/js/2.9ef220fa.chunk.js": "/ornament-test/static/js/2.9ef220fa.chunk.js",
+    "static/js/2.9ef220fa.chunk.js.map": "/ornament-test/static/js/2.9ef220fa.chunk.js.map",
     "index.html": "/ornament-test/index.html",
-    "precache-manifest.2dd371f87735db77afba4fddbef9aeac.js": "/ornament-test/precache-manifest.2dd371f87735db77afba4fddbef9aeac.js",
+    "precache-manifest.f0f90237438f5fafa3aa1e3efa337207.js": "/ornament-test/precache-manifest.f0f90237438f5fafa3aa1e3efa337207.js",
     "service-worker.js": "/ornament-test/service-worker.js",
     "static/css/main.34de6062.chunk.css.map": "/ornament-test/static/css/main.34de6062.chunk.css.map"
   }
